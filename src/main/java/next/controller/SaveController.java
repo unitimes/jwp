@@ -10,13 +10,12 @@ import core.mvc.ModelAndView;
 import core.utils.ServletRequestUtils;
 
 public class SaveController extends AbstractController{
-	private QuestionDao questionDao = new QuestionDao();
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Question question = new Question(ServletRequestUtils.getStringParameter(request, "writer"), ServletRequestUtils.getStringParameter(request, "title"), ServletRequestUtils.getStringParameter(request, "contents"));
-		questionDao.insert(question);
+		QuestionDao.getDao().insert(question);
 		return new ListController().execute(request, response);
 	}
 }

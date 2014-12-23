@@ -10,6 +10,12 @@ import core.jdbc.JdbcTemplate;
 import core.jdbc.RowMapper;
 
 public class AnswerDao {
+	
+	private static AnswerDao answerDao = new AnswerDao();
+	
+	public static AnswerDao getDao() {
+		return answerDao;
+	}
 
 	public void insert(Answer answer) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();

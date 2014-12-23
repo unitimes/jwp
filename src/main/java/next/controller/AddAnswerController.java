@@ -11,15 +11,13 @@ import core.mvc.ModelAndView;
 import core.utils.ServletRequestUtils;
 
 public class AddAnswerController extends AbstractController{
-	private AnswerDao answerDao = new AnswerDao();
-	private QuestionDao questionDao = new QuestionDao();
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Answer answer = new Answer(ServletRequestUtils.getStringParameter(request, "writer"), ServletRequestUtils.getStringParameter(request, "contents"), ServletRequestUtils.getLongParameter(request, "questionId"));
-		answerDao.insert(answer);
-		questionDao.increaseConuntOfComment(ServletRequestUtils.getIntParameter(request, "questionId"));
+		AnswerDao.getDao().insert(answer);
+		QuestionDao.getDao().increaseConuntOfComment(ServletRequestUtils.getIntParameter(request, "questionId"));
 		ModelAndView mav = jstlView("api");
 		return mav;
 	}
